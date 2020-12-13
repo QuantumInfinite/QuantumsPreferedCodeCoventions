@@ -149,6 +149,24 @@ IRadialSlider
 
 Indentation should be done using **tabs** — never spaces.  
 
+**AVOID:**
+
+```csharp
+for (int i = 0; i < 10; i++) 
+{
+    Debug.Log("index=" + i);
+}
+```
+
+**PREFER:**
+
+```csharp
+for (int i = 0; i < 10; i++) 
+{
+	Debug.Log("index=" + i);
+}
+```
+
 #### Blocks
 
 Indentation for blocks uses **1 tab** for optimal readability:
@@ -158,7 +176,7 @@ Indentation for blocks uses **1 tab** for optimal readability:
 ```csharp
 for (int i = 0; i < 10; i++) 
 {
-    Debug.Log("index=" + i);
+Debug.Log("index=" + i);
 }
 ```
 
@@ -262,16 +280,17 @@ if (someTest){ DoSomethingElse(); }
 ```
 ## Switch Statements
 
-Switch-statements come with `default` case by default. If the `default` case is never reached, be sure to remove it.
+Switch-statements come with `default` case by default. If the `default` case is impossible, be sure to remove it.
 
 **AVOID:**  
   
 ```csharp
+var variable = someCondition ? a : b;
 switch (variable) 
 {
-    case 1:
+    case a:
         break;
-    case 2:
+    case b:
         break;
     default:
         break;
@@ -281,12 +300,34 @@ switch (variable)
 **PREFER:**  
   
 ```csharp
+var variable = someCondition ? a : b;
 switch (variable) 
 {
-    case 1:
+    case a:
         break;
-    case 2:
+    case b:
         break;
+}
+```
+
+An exception to this is if the 'default' case is unexcpted but possible, then it should be present and throw an error
+
+```csharp
+enum MyEnum 
+{
+	A,
+	B
+}
+
+switch ((MyEnum) someInt) 
+{
+    case A:
+        break;
+    case B:
+        break;
+	default:
+		throw new ArgumentOutOfRangeException();
+		break;
 }
 ```
 
